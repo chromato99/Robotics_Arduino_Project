@@ -1,0 +1,44 @@
+forked from ComputerNerd/ov7670-no-ram-arduino-uno
+
+modified for:
+Arduino Mega 2560
+Arduino Software (IDE)
+
+Connections:
+Arduino Mega - OV7670
+21 -(level shift!)-> SIOC
+20 <-(level shift!)-> SIOD
+46 -(level shift!)-> XCLK
+30 <- D7
+31 <- D6
+32 <- D5
+33 <- D4
+34 <- D3
+35 <- D2
+36 <- D1
+37 <- D0
+26 <- VSYNC
+28 <- PCLK
+GND  -> PWDN
+3.3v -> RESET
+GND  -> GND
+3.3v -> 3V3
+
+warning:
+don't connect SIOC, SIOD, XCLK directly to arduino mega
+consequences will be unpredictable.
+Arduino Mega 2560 board has 20, 21 pins pulled-up to 5V! (see scematics)
+
+ran few tests:
+
+1.
+usart baud rate: 0.5M
+resolution: 160x120 (QQVGA)
+color space: YUV422
+result: about 1 frame per second
+
+2.
+usart baud rate: 0.5M
+resolution: 320x240 (QVGA)
+color space: YUV422
+result: about 1 frame per 4 seconds
