@@ -18,10 +18,10 @@
                     "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\cores\\arduino",
                     "C:\\Users\\chrom\\Documents\\Arduino_Project2018",
                     "C:\\Program Files (x86)\\Arduino\\hardware\\tools\\avr\\lib\\gcc\\avr\\5.4.0\\include",
-                "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\variants\\standard",
-                "C:\\Program Files (x86)\\Arduino",
-                "C:\\Program Files (x86)\\Arduino\\tools\\**",
-                "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\**"
+                    "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\variants\\standard",
+                    "C:\\Program Files (x86)\\Arduino",
+                    "C:\\Program Files (x86)\\Arduino\\tools\\**",
+                    "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\**"
                 ]
             },
             "forcedInclude": [

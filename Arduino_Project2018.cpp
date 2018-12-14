@@ -1,9 +1,15 @@
 #include"Arduino_Project2018.h"
+#include<SoftwareSerial.h>
 #include"Arduino.h"
 #include"communication.h"
 #include"action.h"
+#include"driving.h"
 
 char mode = '0';
+char c = '0';
+int servoBaseP = 0;
+int servoShoulderP=0;
+int servoElbowP=0;
 
 void setup()
 {
@@ -15,27 +21,58 @@ void setup()
     pinMode(TRIG_L, OUTPUT);
     pinMode(ECHO_L, INPUT);
     pinMode(TRIG_R, OUTPUT);
-    pinMode(ECHO_R, INPUT);
+    pinMode(ECHO_R, INPUT);                                                                                                                                                                                      
 
-    pinMode(DriveModulePin1, OUTPUT);       // Motor A 방향설정1
-    pinMode(DriveModulePin2, OUTPUT);       // Motor A 방향설정2
-    pinMode(DriveModulePin3, OUTPUT);       // Motor B 방향설정1
-    pinMode(DriveModulePin4, OUTPUT);       // Motor B 방향설정2
+    pinMode(5, OUTPUT);
+    pinMode(6, OUTPUT);
+    pinMode(7, OUTPUT);
+
+    pinMode(DriveModulePin1, OUTPUT);    
+    pinMode(DriveModulePin2, OUTPUT);  
+    pinMode(DriveModulePin3, OUTPUT);   
+    pinMode(DriveModulePin4, OUTPUT);       
     pinMode(PUMP, OUTPUT);
-    pinMode(FLAME, OUTPUT);
+    pinMode(FLAME_D, INPUT);
+    pinMode(pinSpeaker, OUTPUT);
 }
 
 void loop()
 {
-  mode = takeSerial1Char();
+  c = takeSerial1Char();
+  if(c=='1' && mode == '0') {
+    mode = '1';
+  }
+  else if(c=='1' && mode == '1') {
+    mode = '0';
+  }
+
   if(mode == '0') {
-    remoteDriving();
+    remoteDriving(c);
   }
   else if(mode == '1') {
     selfDriving();
   }
-  else if(mode == 'w') {
-    sprayingWater(50);
+  
+  if(c == 'w') {
+    sprayingWater(250);
+  }
+  else if(c=='n') {
+    sprayingWater(0);
+  }
+  else {
+    robotArm(c);
+  }
+  
+  checkFlameSensor();
+
+  int distance = checkDistance(TRIG_L, ECHO_L);
+  
+
+  if (distance<25) {
+    analogWrite(LED_Y, 255);
+  }
+  else {
+    analogWrite(LED_Y, 0);
   }
   delay(10);
 }

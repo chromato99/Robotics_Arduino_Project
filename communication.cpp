@@ -24,5 +24,14 @@ int checkDistance(int trig, int echo) {
 }
 
 int checkFlameSensor() {
-
+  int val = analogRead(FLAME_A);
+  if(val < 500) {
+    analogWrite(LED_R, 255);
+    analogWrite(pinSpeaker, 150);
+  }
+  else if(val > 500) {
+    analogWrite(LED_R, 0);
+    analogWrite(pinSpeaker, 0);
+  }
+  return val;
 }

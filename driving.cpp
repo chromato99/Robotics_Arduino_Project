@@ -2,14 +2,14 @@
 #include"Arduino_Project2018.h"
 #include"communication.h"
 
-void movingFoward(int input_time) {
+void movingBackward(int input_time) {
     digitalWrite(DriveModulePin1, HIGH); 
     digitalWrite(DriveModulePin2, LOW); 
     digitalWrite(DriveModulePin3, HIGH); 
     digitalWrite(DriveModulePin4, LOW);
     analogWrite(DrivePin1, 250); 
     analogWrite(DrivePin2, 250);
-    delay(intput_time);
+    delay(input_time);
 }
 
 void movingTurnLeft(int input_time) {
@@ -32,7 +32,7 @@ void movingTurnRight(int input_time) {
     delay(input_time);
 }
 
-void movingBackward(int input_time) {
+void movingFoward(int input_time) {
     digitalWrite(DriveModulePin2, HIGH); 
     digitalWrite(DriveModulePin1, LOW); 
     digitalWrite(DriveModulePin4, HIGH); 
@@ -49,29 +49,20 @@ void movingStop(int input_time) {
 }
 
 int selfDriving() {
-    int distance = checkDistance(TRIG ,ECHO);
-    int distance_l = checkDistance(TRIG_L ,ECHO_L);
-    int distance_r = checkDistance(TRIG_R, ECHO_R);
-
+    
+    int distance = checkDistance(TRIG_L ,ECHO_L);
     if(distance > 30) {
         movingFoward(50);
     }
     else if(distance < 30) {
         movingStop(10);
-        if(distance_l>distance_r) {
-            movingTurnLeft(100);
-        }
-        else if(distance_l<distance_r) {
-            movingTurnRight(100);
-        }
+        movingTurnRight(1000);
     }
 
     return 0;
 }
 
-int remoteDriving() {
-    char input;
-    input = takeSerial1Char();
+int remoteDriving(char input) { 
 
     if(input == 'f') {
     movingFoward(20);
@@ -79,13 +70,13 @@ int remoteDriving() {
     else if(input == 'l') {
     movingTurnLeft(20); 
     }
-    else if(c == 'r') {
+    else if(input == 'r') {
     movingTurnRight(20);
     }
-    else if(c == 'b') {
+    else if(input == 'b') {
     movingBackward(20);
     }
-    else {
+    else if(input == 's') {
     movingStop(20);
     }
     delay(20);

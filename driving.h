@@ -7,4 +7,4 @@ void movingBackward(int input_time);
 void movingStop(int input_time);
 
 int selfDriving();
-int remoteDriving();
+int remoteDriving(char input);
