@@ -49,16 +49,23 @@ void movingStop(int input_time) {
 }
 
 int selfDriving() {
-    
-    int distance = checkDistance(TRIG_L ,ECHO_L);
+    int distance = checkDistance(TRIG ,ECHO);
+    int distance_l = checkDistance(TRIG_L ,ECHO_L);
+    int distance_r = checkDistance(TRIG_R, ECHO_R);
+
     if(distance > 30) {
         movingFoward(50);
     }
     else if(distance < 30) {
         movingStop(10);
-        movingTurnRight(1000);
+        if(distance_l>distance_r) {
+            movingTurnLeft(100);
+        }
+        else if(distance_l<distance_r) {
+            movingTurnRight(100);
+        }
     }
-
+    movingStop(5);
     return 0;
 }
 
